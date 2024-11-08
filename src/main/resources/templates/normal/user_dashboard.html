@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+th:replace="normal/base::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title th:text="${title}">User Dashboard</title>
+</head>
+<body>
+
+<section>
+<h1>welcome in user dashboard page</h1>
+		<div th:if="${param.login}" class="alert alert-danger">
+	    <span th:text="${username}"></span>
+	    </div>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+			  	th:replace="normal/base::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title th:text="${title}">User Dashboard</title>
+</head>
+
+<body>
+	
+	<section>
+	<div class="container col-md-8">
+	
+	<div class="card mt-2 mb-3">
+	 <!--  <h5 class="card-header text-center font-color">New Contact added</h5> -->
+	  <div class="card-body">
+	  	<h3 class="text-success">Your Contact is Added</h3>
+	  	<h4 th:text=${contact.name}></h4>
+	    <p class="card-text">Your contact has been added successfully.</p> 
+
+	  </div>
+	</div>
+	</div>
+	</section>
+	
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+				th:replace="normal/base::layout(~{::section})">
+<head>
+	<meta charset="UTF-8" />
+	<title th:text="${title}">User Dashboard</title>
+</head>
+<body>
+	
+	<section>
+		<div class="container col-md-12">
+			<div class="card  mb-3">
+			<h5 class="card-header text-center font-color">View Contacts</h5>
+	  			<div class="card-body">
+	  			
+	  			<table class="table table-hover">
+				  <thead>
+				    <tr>
+				      <th scope="col">ID</th>
+				      <th scope="col">Name</th>
+				      <th scope="col">Phone</th>
+				      <th scope="col">Email</th>
+				      <th scope="col">Action</th>
+				    </tr>
+				  </thead>
+					  <tbody>
+					    <tr th:each="c : ${contacts}">
+					      <th scope="row"><span th:text="${c.cid}"></span></th>
+					      
+					      <td>
+					      <img class="img-sm-profile" th:src="@{'/img/'+${c.image}}">
+					      <a th:href="@{'/user/contact/'+${c.cid}}"><span th:text="${c.name}"></span></a>
+					      </td>
+					     
+					      <td th:text="${c.phone}">phone</td>
+					      <td th:text="${c.email}">email</td>
+					      <td>
+					      
+					      	<a th:href="@{'/user/update-contact/'+ ${c.cid}}" class="btn btn-light btn-sm"><i class="fa fa-wrench" aria-hidden="true"></i></a>
+					     	<!-- <button type="button" class="btn btn-light btn-sm" ><i class="fa fa-wrench" aria-hidden="true"></i></button> -->
+					     	<a href="#" th:onclick="|onDelete(${c.cid})|"  class="btn btn-light btn-sm"><i class="fa fa-trash" aria-hidden="true"></i></a>
+							<!-- <a th:href="@{'/user/delete-contact/'+ ${c.cid}}"  class="btn btn-light btn-sm"><i class="fa fa-trash" aria-hidden="true"></i></a>  -->
+							<!-- <button type="button" class="btn btn-light btn-sm" th:onclick="onDelete(${c.cid})"><i class="fa fa-trash" aria-hidden="true"></i></button> -->
+					      </td>
+					    </tr>
+					   
+					  </tbody>
+				</table>
+	  			  			
+	  			</div>
+	  			
+	  			<!-- pagination buttons here -->	
+	  			<div class="container">
+	  			<nav aria-label="Page navigation example">
+				  <ul class="pagination justify-content-center pagination-sm ">
+				  
+				  	<!-- th:if="${currentPage != 0}" -->
+				    <li th:classappend="${currentPage != 0 ?'':'disabled'}" class="page-item"><a class="page-link" th:href="@{'/user/show-contacts/'+${currentPage-1}}">Previous</a></li>
+				    
+				    <li th:each="i : ${#numbers.sequence(1,totalPages)}" 
+				    	th:classappend="${currentPage==i-1?'active':''}"
+				    class="page-item">
+				    <a class="page-link" th:href="@{'/user/show-contacts/'+${i-1}}"><span th:text="${i}"></span></a>
+				    </li>
+				    
+				   <!--  th:if="${currentPage+1 != totalPages}"  -->
+				    <li th:classappend="${currentPage+1 != totalPages ?'':'disabled'}" class="page-item"><a class="page-link" th:href="@{'/user/show-contacts/'+${currentPage+1}}">Next</a></li>
+				  </ul>
+				</nav>	  			
+	  			</div>
+			</div>
+		</div>
+	
+		
+	<script type="text/javascript">
+	
+	function onDelete(cid){
+		
+		swal({
+		  title: "Are you sure?",
+		  text: "Once deleted, you will not be able to recover this contact again!",
+		  icon: "warning",
+		  buttons: true,
+		  dangerMode: true,
+		})
+		.then((willDelete) => {
+		  if (willDelete) {
+			  	  
+		    swal("Poof! Your contact has been deleted!", {
+		      icon: "success",
+		    });
+		    
+		   window.location = "/user/delete-contact/" + cid;
+		    
+		  } else {
+		    swal("Your contact is safe!");
+		  }
+		});
+		}
+	
+	</script>	
+	
+	<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+	
+	<script type="text/javascript">
+      tinymce.init({
+        selector: '#mytextarea'
+      });
+    </script>
+	
+	</section>
+	
+</body>
+</html>

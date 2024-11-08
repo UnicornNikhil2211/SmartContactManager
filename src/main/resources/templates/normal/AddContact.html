@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+			  	th:replace="normal/base::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title th:text="${title}">User Dashboard</title>
+</head>
+
+<body>
+
+<!-- <section class="banner d-flex justify-content-center align-items-center"> -->
+    <section>
+	<div class="container col-md-8">
+	
+	
+	 <!-- Form Start -->
+	<form th:action="@{/user/process-contact}"  th:method="post" th:object="${contact}" enctype="multipart/form-data">
+	
+	<div class="card  mb-3">
+	  <h5 class="card-header text-center font-color">Add a Contact</h5>
+	  <div class="card-body">
+	    <!-- <p class="card-text">Please fill your details here.</p> -->
+	    
+	   <div class="row">
+	   
+		  <div class="col-sm-9">  
+		  	<!-- name -->
+			  <div class="form-group row">
+			    <!-- <label for="inputName" class="col-sm-3 col-form-label">Your Name</label> -->    
+			    <div class="input-group col-sm-12">
+			        <div class="input-group-prepend">
+			          <span class="input-group-text" id="inputGroupPrepend">
+			          <i class="fa fa-plus"></i>
+			          </span>
+			        </div>
+        			<input type="text" name="name" class="form-control " id="inContactName" placeholder="Enter Name here" aria-describedby="inputGroupPrepend" 
+        			th:value="${contact.name}" 
+        			th:classappend="${#fields.hasErrors('name')?'is-invalid':''}">
+        			<div class="invalid-feedback" th:each="e : ${#fields.errors('name')}" th:text="${e}" ></div>
+				</div>    	   	     
+			  </div>                                                                                                                                           
+		  
+		    <!-- nick name -->
+			  <div class="form-group row">
+			    <!-- <label for="inputName" class="col-sm-3 col-form-label">Your Name</label> -->    
+			    <div class="input-group col-sm-12">
+			        <div class="input-group-prepend">
+			          <span class="input-group-text" id="inputGroupPrepend">
+			          <i class="fa fa-user"></i>
+			          </span>
+			        </div>
+        			<input type="text" name="nickname" class="form-control " id="inContactNickName" placeholder="Enter Nick Name here" aria-describedby="inputGroupPrepend" 
+        			th:value="${contact.nickname}"
+        			th:classappend="${#fields.hasErrors('nickname')?'is-invalid':''}" >
+        			<div class="invalid-feedback" th:each="e : ${#fields.errors('nickname')}" th:text="${e}"></div>
+				</div>    	   	     
+			  </div> 
+			  
+			 <!-- email -->
+			  <div class="form-group row">
+			    <!-- <label for="inputName" class="col-sm-3 col-form-label">Your Name</label> -->    
+			    <div class="input-group col-sm-12">
+			        <div class="input-group-prepend">
+			          <span class="input-group-text" id="inputGroupPrepend">
+			          <i class="fa fa-envelope"></i>
+			          </span>
+			        </div>
+        			<input type="email" name="email" class="form-control " id="inEmail" placeholder="Enter Email here" aria-describedby="inputGroupPrepend" 
+        			th:value="${contact.email}" 
+        			th:classappend="${#fields.hasErrors('email')?'is-invalid':''}" >
+        			<div class="invalid-feedback" th:each="e : ${#fields.errors('email')}" th:text="${e}"></div>
+				</div>    	   	     
+			  </div>  
+			  
+			  <!-- phone -->
+			  <div class="form-group row">
+			    <!-- <label for="inputName" class="col-sm-3 col-form-label">Your Name</label> -->    
+			    <div class="input-group col-sm-12">
+			        <div class="input-group-prepend">
+			          <span class="input-group-text" id="inputGroupPrepend">
+			          <i class="fa fa-phone"></i>
+			          </span>
+			        </div>
+        			<input type="number" name="phone" class="form-control " id="inPhone" placeholder="Enter Phone number here" aria-describedby="inputGroupPrepend"
+        			th:value="${contact.phone}"
+        			th:classappend="${#fields.hasErrors('phone')?'is-invalid':''}" >
+        			<div class="invalid-feedback" th:each="e : ${#fields.errors('phone')}" th:text="${e}"></div>
+				</div>    	   	     
+			  </div>  
+			  
+			  
+			  <!-- work -->
+			  <div class="form-group row">
+			    <!-- <label for="inputName" class="col-sm-3 col-form-label">Your Name</label> -->    
+			    <div class="input-group col-sm-12">
+			        <div class="input-group-prepend">
+			          <span class="input-group-text" id="inputGroupPrepend">
+			          <i class="fa  fa-briefcase"></i>
+			          </span>
+			        </div>
+        			<input type="text" name="work" class="form-control " id="inContactWork" placeholder="Enter Work here" aria-describedby="inputGroupPrepend"
+        			th:value="${contact.work}"
+        		    th:classappend="${#fields.hasErrors('work')?'is-invalid':''}" >
+        		    <div class="invalid-feedback" th:each="e : ${#fields.hasErrors('work')}" th:text="${e}"></div>
+				</div>    	   	     
+			  </div> 
+			  
+			 
+		  </div>
+		  
+		  <!--Photo Start  -->
+		  <div class="col-sm-3 ">
+		    <div class="card" style="height: 200px;" >
+		      <div class="card-body text-center">
+		        <!-- <label class="card-title ">Photograph</label> -->
+		        <img  class="img-thumbnail" id="output" name="outputIamge" alt="" th:src="@{/img/blank-profile-picture.png}">       
+		      </div>
+		    </div>
+		    <div class="form-group">
+				<!-- <label for="inputIamge">Choose Image</label> -->
+				 <input type="file" class="form-control-sm" id="inputIamge" 
+				 name="profileImage"
+				 accept="image/*" 
+				 onchange="loadFile(event)">
+			</div>
+		  </div>
+		   <!-- End Photo  -->	
+		   
+		   <!-- long group -->
+		   <div class="col-sm-12">
+		   
+		     <!-- address -->
+			  <div class="form-group row">
+			    <!-- <label for="inputName" class="col-sm-3 col-form-label">Your Name</label> -->    
+			    <div class="input-group col-sm-12">
+			        <div class="input-group-prepend">
+			          <span class="input-group-text" id="inputGroupPrepend">
+			          <i class="fa fa-address-book"></i>
+			          </span>
+			        </div>
+        			<input type="text" name="address" class="form-control " id="inContactAddress" placeholder="Enter Address here" aria-describedby="inputGroupPrepend"
+        			th:value="${contact.address}"
+        			th:classappend="${#fields.hasErrors('address')?'is-invalid':''}" >
+        			<div class="invalid-feedback" th:each="e : ${#fields.errors('address')}" th:text="${e}"></div>
+				</div>    	   	     
+			  </div>
+			  
+			 <!-- city & pincode-->
+			  <div class="form-group row">
+			    <!-- <label for="inputName" class="col-sm-3 col-form-label">Your Name</label> -->    
+			    <div class="input-group col-sm-12">
+			        <div class="input-group-prepend">
+			          <span class="input-group-text" id="inputGroupPrepend">
+			          <i class="fa fa-address-book"></i>
+			          </span>
+			        </div>
+        			<input type="text" name="city" class="form-control mr-2" id="inContactCity" placeholder="Enter City here" aria-describedby="inputGroupPrepend"
+        			th:value="${contact.city}" 
+        			th:classappend="${#fields.hasErrors('city')?'is-invalid':''}" >
+        			<div class="invalid-feedback" th:each="e : ${#fields.errors('city')}" th:text="${e}"></div>
+        			
+        			<div class="input-group-prepend">
+			          <span class="input-group-text" id="inputGroupPrepend">
+			          <i class="fa fa-map-marker"></i>
+			          </span>
+			        </div>	
+        			<input type="number" name="pincode" class="form-control" id="inContactPincode" placeholder="Enter Pincode here" aria-describedby="inputGroupPrepend"
+        			th:value="${contact.pincode}" 
+        			th:classappend="${#fields.hasErrors('pincode')?'is-invalid':''}" >
+        			<div class="invalid-feedback" th:each="e:${#fields.errors('pincode')}" th:text="${e}"></div>
+				</div>    	   	     
+			  </div>
+			  
+			 <!-- state & country -->
+			  <div class="form-group row">
+			    <!-- <label for="inputName" class="col-sm-3 col-form-label">Your Name</label> -->    
+			    <div class="input-group col-sm-12">
+			        <div class="input-group-prepend">
+			          <span class="input-group-text" id="inputGroupPrepend">
+			          <i class="fa fa-address-book"></i>
+			          </span>
+			        </div>
+        			<input type="text" name="state" class="form-control mr-2" id="inContactState" placeholder="Enter State here" aria-describedby="inputGroupPrepend"
+        			th:value="${contact.state}" 
+        			th:classappend="${#fields.hasErrors('state')?'is-invalid':''}" >
+        			<div class="invalid-feedback" th:each="e:${#fields.errors('state')}" th:text="${e}"></div>
+					
+					<div class="input-group-prepend">
+			          <span class="input-group-text" id="inputGroupPrepend">
+			          <i class="fa fa-flag"></i>
+			          </span>
+			        </div>				
+					<input type="text" name="country" class="form-control" id="inContactCountry" placeholder="Enter Country here" aria-describedby="inputGroupPrepend"
+					th:value="${contact.country}" 
+					th:classappend="${#fields.hasErrors('country')?'is-invalid':''}" >
+					<div class="invalid-feedback" th:each="e:${#fields.errors('country')}" th:text="${e}"></div>
+				</div>    	   	     
+			  </div>	        
+		  
+			   <div class="form-group row">
+			    <!-- <label for="textAbout" class="col-sm-3 col-form-label">About you</label> -->
+			    <div class="col-sm-12">
+			    <textarea class="form-control" name="description" id="mytextarea" rows="10" placeholder="Enter Description here"></textarea>
+			    </div>
+			  </div>
+		 	 
+		<!--  --> 
+		 	  	   	  	  	   
+		   </div>  
+		       
+	 </div>
+	  	
+	  </div>
+	</div>
+	<div class="form-group text-right">
+		    <div class="col-sm-12 ">
+		    	<button type="submit" class="btn bg-primary">Add Contact</button>
+		      	<button type="reset" class="btn btn-secondary">Reset</button>	      
+		    </div>
+		 </div>
+	
+	</form>
+	<!-- End Form -->
+	
+	 	 	
+	</div>
+	
+	<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+	
+	<script>
+      tinymce.init({
+        selector: '#mytextarea'
+      });
+    </script>
+	
+	</section>
+
+</body>
+</html>

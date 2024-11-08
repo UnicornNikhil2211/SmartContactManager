@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title th:text="${title}">Sign Up</title>
+</head>
+<body>
+	
+	<section class="banner d-flex justify-content-center align-items-center">
+	<div class="container col-md-8">
+	
+	<div class="card mt-2 mb-3">
+	  <h5 class="card-header text-center font-color">Account created</h5>
+	  <div class="card-body">
+	  	<h2 class="text-success">Welcome</h2>
+	  	<h3 th:text=${user.name}></h3>
+	    <p class="card-text">Your account is created successfully.</p> 
+
+	  </div>
+	</div>
+	</div>
+	</section>
+	
+</body>
+</html>
